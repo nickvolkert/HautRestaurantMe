@@ -71,6 +71,30 @@
         });
     }
     runtableQuery();
+
+    function runWaitListQuery(){
+      var currentURL = window.location.origin;
+      $.ajax({url: currentURL + "/api/waitlist", method: "GET"})
+        .done(function(waitlistData){
+          console.log("________________________________");
+          console.log("URL:" + currentURL + "/api/waitlist");
+          console.log("________________________________");
+          console.log(waitlistData);
+          console.log("________________________________");
+
+          for (var i=0; i<waitlistData.length; i++){
+            console.log(waitlistData[i]);
+            var waitlistSection = $("<div>");
+            waitlistSection.addClass('well');
+            waitlistSection.attr('id', 'tableWell-' + i+1);
+            $("#tableSection").append(waitlistSection);
+
+            var tableNumber = i + 1;
+            $("waitlistWell-" + i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + waitlistData[i].customerID + "</h2>");
+          }
+        });
+    }
+    runWaitListQuery();
   </script>
 </body>
 </html>
